@@ -6,5 +6,7 @@
   <fixparts-manager
     class="col-md-8"
     [qurrentFixpartsQueue]="queue$ | async"
+    [fixpartsAvailToProduce]="fixpartsInfo$ | async"
+    (addToQueue)="addToQueue($event)"
   ></fixparts-manager>
 </main>

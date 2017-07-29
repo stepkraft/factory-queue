@@ -12,6 +12,10 @@ import { StoreModule } from '@ngrx/store';
 import { ENV_PROVIDERS } from './environment';
 
 import {
+  ModalModule,
+} from 'ngx-bootstrap';
+
+import {
   AppComponent,
 } from './containers';
 
@@ -43,6 +47,7 @@ import '../styles/headings.css';
   imports: [
     BrowserModule,
     FormsModule,
+    ModalModule.forRoot(),
     StoreModule.provideStore(reducer),
   ],
   /**

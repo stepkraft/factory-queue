@@ -1,1 +1,68 @@
-fixparts manager info will be here soon
+<div class="container">
+  <div class="current-queue">
+    <h2>Qurrent queue</h2>
+    <div class="row">
+      <p class="col-md-12" *ngIf="!qurrentFixpartsQueue.length">queue is empty</p>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-2">
+      <button type="button" class="btn btn-primary btn-md" (click)="compose(modal)">Compose parts to produce</button>
+    </div>
+  </div>
+</div>
+
+<template #modal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Compose fixparts bunch</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="content">
+      <div class="list-to-add">
+        <div class="row" *ngFor="let part of composingList">
+          <div class="col-sm-6">
+            <label>Select part</label>
+            <select class="form-control" [(ngModel)]="part.name" (ngModelChange)="setFixpartItem(part)">
+              <option *ngFor="let fixpart of fixpartsAvailToProduce" [ngValue]="fixpart.id">{{fixpart.text}}</option>
+            </select>
+          </div>
+          <div class="col-sm-2">
+            <label>Qty</label>
+            <input class="form-control" type="number" min="1" [(ngModel)]="part.items" />
+          </div>
+          <div class="col-sm-2">
+            <label>Remove</label>
+            <span class="glyphicon glyphicon-remove" (click)="removeComposingItem(part)"></span>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-md" (click)="addNewRowToComposingList()">New</button>
+      </div>
+      <div class="buttons">
+        <button class="btn btn-primary" (click)="addToMainQueue()">Add to queue</button>
+        <button class="btn btn-default" (click)="composingList=[];modalRef.hide()">Cancel</button>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-8 col-sm-10 col-xs-12">
+          <p>Details count: <span>{{composingListItemsCount}}</span></p>
+          <p>Time to produce: <span>{{composingListOveralTime}}</span> ms</p>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-8 col-sm-10 col-xs-12">
+          <h3>Available parts to produce</h3>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let part of fixpartsAvailToProduce">
+              {{part.text}}<span style="float: right;">{{part.timeToProduce}} ms</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

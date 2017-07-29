@@ -1,5 +1,6 @@
 import {
   Actions,
+  ADD_TO_QUEUE,
   QUEUE_SET,
   CLEAR_QUEUE,
 } from '../actions/queue';
@@ -14,6 +15,13 @@ const initialState: IState = {
 
 export function reducer(state = initialState, action: Actions): IState {
   switch (action.type) {
+    case ADD_TO_QUEUE: {
+      return {
+        ...state,
+        state: [].concat([...state.queue], [...action.payload])
+      };
+    }
+
     case QUEUE_SET: {
       return {
         ...state,

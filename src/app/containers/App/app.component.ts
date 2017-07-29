@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { AppState } from './app.service';
+import { AppState } from '../../app.service';
 
 /**
  * App Component
@@ -18,17 +18,7 @@ import { AppState } from './app.service';
   styleUrls: [
     './app.component.css'
   ],
-  template: `
-    <header>
-      factory
-    </header>
-    <main>
-      <p>content</p>
-    </main>
-    <footer>
-      <p>footer</p>
-    </footer>
-  `
+  templateUrl: './app.html',
 })
 export class AppComponent implements OnInit {
   constructor(

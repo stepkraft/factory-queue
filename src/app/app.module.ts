@@ -14,8 +14,17 @@ import {
  * Platform and Environment providers/directives/pipes
  */
 import { ENV_PROVIDERS } from './environment';
-// App is our top level component
-import { AppComponent } from './app.component';
+
+import {
+  AppComponent,
+} from './containers';
+
+import {
+  HeaderComponent,
+  ProcessBlockComponent,
+  FixpartsManagerComponent,
+} from './components';
+
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 
@@ -41,6 +50,9 @@ type StoreType = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
+    HeaderComponent,
+    ProcessBlockComponent,
+    FixpartsManagerComponent,
   ],
   /**
    * Import Angular's modules.

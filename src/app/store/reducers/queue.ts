@@ -18,14 +18,14 @@ export function reducer(state = initialState, action: Actions): IState {
     case ADD_TO_QUEUE: {
       return {
         ...state,
-        state: [].concat([...state.queue], [...action.payload])
+        queue: [].concat(state.queue, action.payload)
       };
     }
 
     case QUEUE_SET: {
       return {
         ...state,
-        queue: action.payload,
+        queue: [...action.payload],
       };
     }
 

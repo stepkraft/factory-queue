@@ -10,6 +10,7 @@ import {
 
 import {
   AddToQueueAction,
+  SetQueueAction,
 } from '../../store/actions/queue';
 
 @Component({
@@ -24,9 +25,17 @@ export class AppComponent {
   constructor(private store: Store<IStoreState>) {
     this.queue$ = store.select(getQueueObject);
     this.fixpartsInfo$ = store.select(getFixpartsInfo);
+
+    this.queue$.subscribe((v) => {
+      console.log('this.queue$ changed to ', v);
+    })
   }
 
   public addToQueue = (payload) => {
     this.store.dispatch(new AddToQueueAction(payload));
+  }
+
+  public resetQueue = (payload) => {
+    this.store.dispatch(new SetQueueAction(payload));
   }
 }

@@ -14,7 +14,7 @@ import { ENV_PROVIDERS } from './environment';
 import {
   ModalModule,
 } from 'ngx-bootstrap';
-
+import { SortablejsModule } from 'angular-sortablejs';
 import {
   AppComponent,
 } from './containers';
@@ -23,6 +23,7 @@ import {
   HeaderComponent,
   ProcessBlockComponent,
   FixpartsManagerComponent,
+  SortablePartsComponent,
 } from './components';
 
 import { reducer } from './store/reducers';
@@ -40,6 +41,7 @@ import '../styles/headings.css';
     HeaderComponent,
     ProcessBlockComponent,
     FixpartsManagerComponent,
+    SortablePartsComponent,
   ],
   /**
    * Import Angular's modules.
@@ -49,6 +51,7 @@ import '../styles/headings.css';
     FormsModule,
     ModalModule.forRoot(),
     StoreModule.provideStore(reducer),
+    SortablejsModule,
   ],
   /**
    * Expose our Services and Providers into Angular's dependency injection.

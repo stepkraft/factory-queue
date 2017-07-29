@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, TemplateRef  } from '@angular/core';
+import { Component, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
 
@@ -9,14 +9,20 @@ import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
 })
 
 export class FixpartsManagerComponent {
-  @Input() public qurrentFixpartsQueue: any[] = [];
+  @Input() public currentFixpartsQueue: any[] = [];
   @Input() public fixpartsAvailToProduce;
-  @Output() public addToQueue = new EventEmitter<any>();
+  @Output() public addToQueue = new EventEmitter<any[]>();
+  @Output() public resetQueue = new EventEmitter<any[]>();
 
   public modalRef: BsModalRef;
   public composingList: any[];
+  public sortableQueue: any[];
 
   constructor(private modalService: BsModalService) {}
+
+  ngOnChanges(changes) {
+    console.log('changes: %O', changes);
+  }
 
   public compose = (template: TemplateRef<any>) => {
     this.composingList = [];
@@ -25,6 +31,7 @@ export class FixpartsManagerComponent {
 
   public addNewRowToComposingList = () => {
     this.composingList.push({
+      id: this.guidgen(),
       items: 1,
     });
   }
@@ -34,8 +41,8 @@ export class FixpartsManagerComponent {
   }
 
   public setFixpartItem = (item) => {
-    item.timeToProduce = this.fixpartsAvailToProduce
-      .find((i) => (i.id === item.name)).timeToProduce;
+    const part = this.fixpartsAvailToProduce.find((i) => (i.id === item.partid));
+    [item.timeToProduce, item.name] = [part.timeToProduce, part.text];
   }
 
   public addToMainQueue = () => {
@@ -44,6 +51,15 @@ export class FixpartsManagerComponent {
       this.addToQueue.emit(fixparts);
     }
     this.modalRef.hide();
+  }
+
+  public updateFixpartsQueue = (sortedQueue) => {
+    const reworkedQueue = sortedQueue.map(({id}) => {
+      const founded = this.currentFixpartsQueue.find((item) => (item.id === id));
+      return founded ? founded : null;
+    }).filter(Boolean);
+
+    this.resetQueue.emit(reworkedQueue);
   }
 
   public get composingListItemsCount() {
@@ -58,4 +74,10 @@ export class FixpartsManagerComponent {
     }, 0);
   }
 
+  private guidgen = () => {
+    const id = () => {
+      return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    };
+    return id() + id() + '-' + id() + '-' + id() + '-' + id() + '-' + id() + id() + id();
+  }
 }

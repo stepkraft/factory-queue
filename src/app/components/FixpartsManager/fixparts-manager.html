@@ -1,9 +1,15 @@
 <div class="container">
   <div class="current-queue">
     <h2>Qurrent queue</h2>
-    <div class="row">
-      <p class="col-md-12" *ngIf="!qurrentFixpartsQueue.length">queue is empty</p>
+    <div class="row" *ngIf="!currentFixpartsQueue.length">
+      <p class="col-md-12">Queue is empty</p>
     </div>
+    <sortable-parts
+      *ngIf="currentFixpartsQueue.length"
+      class="row"
+      [originQueue]="currentFixpartsQueue"
+      (reworkQuery)="updateFixpartsQueue($event)"
+    ></sortable-parts>
   </div>
   <hr />
   <div class="row">
@@ -26,7 +32,7 @@
         <div class="row" *ngFor="let part of composingList">
           <div class="col-sm-6">
             <label>Select part</label>
-            <select class="form-control" [(ngModel)]="part.name" (ngModelChange)="setFixpartItem(part)">
+            <select class="form-control" [(ngModel)]="part.partid" (ngModelChange)="setFixpartItem(part)">
               <option *ngFor="let fixpart of fixpartsAvailToProduce" [ngValue]="fixpart.id">{{fixpart.text}}</option>
             </select>
           </div>
@@ -39,7 +45,7 @@
             <span class="glyphicon glyphicon-remove" (click)="removeComposingItem(part)"></span>
           </div>
         </div>
-        <button class="btn btn-primary btn-md" (click)="addNewRowToComposingList()">New</button>
+        <button class="btn btn-primary btn-md" (click)="addNewRowToComposingList()">Add</button>
       </div>
       <div class="buttons">
         <button class="btn btn-primary" (click)="addToMainQueue()">Add to queue</button>
@@ -57,8 +63,9 @@
         <div class="col-md-8 col-sm-10 col-xs-12">
           <h3>Available parts to produce</h3>
           <ul class="list-group">
-            <li class="list-group-item" *ngFor="let part of fixpartsAvailToProduce">
-              {{part.text}}<span style="float: right;">{{part.timeToProduce}} ms</span>
+            <li *ngFor="let part of fixpartsAvailToProduce"
+              class="list-group-item">
+              {{part.text}}<span class="pull-right">{{part.timeToProduce}} ms</span>
             </li>
           </ul>
         </div>

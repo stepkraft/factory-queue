@@ -5,8 +5,9 @@
   ></process-block>
   <fixparts-manager
     class="col-md-8"
-    [qurrentFixpartsQueue]="queue$ | async"
+    [currentFixpartsQueue]="queue$ | async"
     [fixpartsAvailToProduce]="fixpartsInfo$ | async"
     (addToQueue)="addToQueue($event)"
+    (resetQueue)="resetQueue($event)"
   ></fixparts-manager>
 </main>

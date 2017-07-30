@@ -11,6 +11,7 @@ export class ProcessBlockComponent implements OnInit, OnChanges {
   @Input() public currentFixpartsQueue: any[];
   @Input() public detailInWork: any;
   @Output() public addDetailToWork = new EventEmitter();
+  @Output() public detailAcomplished = new EventEmitter();
 
   public conveyorStatus: boolean = false;
   public conveyorStatus$: Subject<boolean> = new Subject();
@@ -18,6 +19,9 @@ export class ProcessBlockComponent implements OnInit, OnChanges {
   private _conveyorStatus = new BehaviorSubject(this.conveyorStatus);
   private _currentFixpartsQueue = new BehaviorSubject(this.currentFixpartsQueue);
   private _detailInWork = new BehaviorSubject(this.detailInWork);
+
+  private _detailProducingTimeSpent: number = 0;
+  private _conveyorBusy: boolean = false;
 
   public ngOnInit() {
     this.conveyorStatus$.subscribe((v) => this._conveyorStatus.next(v) );
@@ -38,6 +42,8 @@ export class ProcessBlockComponent implements OnInit, OnChanges {
 
     if (changes.detailInWork && changes.detailInWork.currentValue) {
       this._detailInWork.next(this.detailInWork);
+      this._detailProducingTimeSpent = 0;
+      this.startProducing();
     }
   }
 
@@ -59,9 +65,35 @@ export class ProcessBlockComponent implements OnInit, OnChanges {
     return '-';
   }
 
+  private startProducing = () => {
+    this._conveyorBusy = true;
+    Observable.interval(50)
+      .takeWhile(() => (
+        this.conveyorStatus && this.detailInWork && this.detailInWork.timeToProduce &&
+        this.detailInWork.items * this.detailInWork.timeToProduce >= this._detailProducingTimeSpent
+      ))
+      .subscribe(() => {
+        this._detailProducingTimeSpent += 50;
+        if (this.detailInWork && this._detailProducingTimeSpent >=
+          this.detailInWork.items * this.detailInWork.timeToProduce
+        ) {
+          this.finishDetailProducing();
+        }
+      });
+  }
+
   private getDetailFromQueueToWork = () => {
-    if (this.currentFixpartsQueue.length && !this.detailInWork && this.conveyorStatus) {
+    if (this.currentFixpartsQueue.length && !this.detailInWork &&
+      this.conveyorStatus && !this._conveyorBusy
+    ) {
       this.addDetailToWork.emit();
     }
+  }
+
+  private finishDetailProducing = () => {
+    setTimeout(() => {
+      this.detailAcomplished.emit();
+      this._conveyorBusy = false;
+    }, 0);
   }
 }

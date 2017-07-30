@@ -5,6 +5,7 @@
     [currentFixpartsQueue]="queue$ | async"
     [detailInWork]="detailInWork$ | async"
     (addDetailToWork)="addDetailToWork()"
+    (detailAcomplished)="removeDetailFromWork()"
   ></process-block>
   <fixparts-manager
     class="col-md-8"

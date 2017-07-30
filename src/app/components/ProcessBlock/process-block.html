@@ -11,9 +11,8 @@
   <hr />
   <div class="row">
     <div class="col-md-8 col-sm-10 col-xs-12">
-      {{detailInWork | json}}
       <p>Detail in work: <span>{{detailName}}</span></p>
-      <p>Remaining time: <span>{{RemainingTime}}</span> ms</p>
+      <p>Time to produce: <span>{{(detailInWork && detailInWork.timeToProduce) ? (detailInWork.timeToProduce * detailInWork.items + ' ms') : '-'}}</span></p>
     </div>
   </div>
 </div>

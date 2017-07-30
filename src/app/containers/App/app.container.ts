@@ -17,6 +17,7 @@ import {
 
 import {
   AddDetailAction,
+  RemoveDetailAction,
 } from '../../store/actions/inWork';
 
 @Component({
@@ -55,5 +56,10 @@ export class AppComponent {
         this.store.dispatch(new AddDetailAction(firstDetailInQueue));
       }, 0);
     }
+  }
+
+  public removeDetailFromWork = () => {
+    this.store.dispatch(new RemoveDetailAction());
+    this.addDetailToWork();
   }
 }

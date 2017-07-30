@@ -3,7 +3,11 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 
 @Component({
   selector: 'process-block',
-  styles: [],
+  styles: [`
+    .detail-image {
+      height: 150px;
+    }
+  `],
   templateUrl: './process-block.html',
 })
 

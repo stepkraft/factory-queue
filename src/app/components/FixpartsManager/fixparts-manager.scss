@@ -1,3 +1,9 @@
+.current-queue {
+  h2 span {
+    font-size: initial;
+  }
+}
+
 .list-to-add {
   .row {
     &:first-child {
@@ -26,6 +32,13 @@
 
   & > button {
     margin-top: 15px;
+  }
+}
+
+.avail-parts {
+  img {
+    height: 36px;
+    margin: -6px 5px 0 5px;
   }
 }
 

@@ -14,6 +14,7 @@
       <h4>Producing detail info:</h4>
       <p>Detail in work: <span>{{detailName}}</span></p>
       <p>Time to produce: <span>{{(detailInWork && detailInWork.timeToProduce) ? (detailInWork.timeToProduce * detailInWork.items + ' ms') : '-'}}</span></p>
+      <img *ngIf="detailInWork" class="detail-image" [src]="detailInWork?.image" [alt]="detailInWork?.name" />
     </div>
   </div>
   <div class="row">

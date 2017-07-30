@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="current-queue">
-    <h2>Current queue</h2>
+    <h2>Current queue <span>(dragable)</span></h2>
     <div class="row" *ngIf="!currentFixpartsQueue.length">
       <p class="col-md-12">Queue is empty</p>
     </div>
@@ -62,10 +62,12 @@
       <div class="row">
         <div class="col-md-8 col-sm-10 col-xs-12">
           <h3>Available parts to produce</h3>
-          <ul class="list-group">
+          <ul class="list-group avail-parts">
             <li *ngFor="let part of fixpartsAvailToProduce"
               class="list-group-item">
-              {{part.text}}<span class="pull-right">{{part.timeToProduce}} ms</span>
+              {{part.text}}
+              <span class="pull-right">{{part.timeToProduce}} ms</span>
+              <img class="pull-right" [src]="part.image" />
             </li>
           </ul>
         </div>

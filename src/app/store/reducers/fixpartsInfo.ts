@@ -4,9 +4,24 @@ export interface IState {
 
 const initialState: IState = {
   fixparts: [
-    { id: 'scooter', text: 'Scooter Part', timeToProduce: 8000 },
-    { id: 'moto', text: 'Motorcircle Part', timeToProduce: 10000 },
-    { id: 'bike', text: 'Bike Part', timeToProduce: 4000 },
+    {
+      id: 'scooter',
+      text: 'Scooter Part',
+      timeToProduce: 8000,
+      image: './assets/img/motorbike.svg'
+    },
+    {
+      id: 'moto',
+      text: 'Motorcircle Part',
+      timeToProduce: 10000,
+      image: './assets/img/motor-sports.svg'
+    },
+    {
+      id: 'bike',
+      text: 'Bike Part',
+      timeToProduce: 4000,
+      image: './assets/img/bicycle.svg'
+    },
   ],
 };
 

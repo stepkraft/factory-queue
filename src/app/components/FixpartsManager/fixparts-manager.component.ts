@@ -38,7 +38,7 @@ export class FixpartsManagerComponent {
 
   public setFixpartItem = (item) => {
     const part = this.fixpartsAvailToProduce.find((i) => (i.id === item.partid));
-    [item.timeToProduce, item.name] = [part.timeToProduce, part.text];
+    [item.timeToProduce, item.name, item.image] = [part.timeToProduce, part.text, part.image];
   }
 
   public addToMainQueue = () => {

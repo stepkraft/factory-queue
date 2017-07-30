@@ -13,6 +13,7 @@ import { ENV_PROVIDERS } from './environment';
 
 import {
   ModalModule,
+  ProgressbarModule,
 } from 'ngx-bootstrap';
 import { SortablejsModule } from 'angular-sortablejs';
 import {
@@ -50,6 +51,7 @@ import '../styles/headings.css';
     BrowserModule,
     FormsModule,
     ModalModule.forRoot(),
+    ProgressbarModule.forRoot(),
     StoreModule.provideStore(reducer),
     SortablejsModule,
   ],

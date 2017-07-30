@@ -24,7 +24,13 @@ export class ProcessBlockComponent implements OnInit, OnChanges {
   private _conveyorBusy: boolean = false;
 
   public ngOnInit() {
-    this.conveyorStatus$.subscribe((v) => this._conveyorStatus.next(v) );
+    this.conveyorStatus$.subscribe((v) => {
+      this._conveyorStatus.next(v);
+
+      if (this._conveyorBusy) {
+        this.startProducing();
+      }
+    });
 
     Observable.merge(
       this._conveyorStatus,
@@ -58,11 +64,12 @@ export class ProcessBlockComponent implements OnInit, OnChanges {
     return '-';
   }
 
-  public get RemainingTime() {
+  public get progressPercentage() {
     if (this.detailInWork && this.detailInWork.timeToProduce) {
-      return this.detailInWork.timeToProduce;
+      return ((this._detailProducingTimeSpent * 100) /
+      (this.detailInWork.timeToProduce * this.detailInWork.items ));
     }
-    return '-';
+    return 0;
   }
 
   private startProducing = () => {

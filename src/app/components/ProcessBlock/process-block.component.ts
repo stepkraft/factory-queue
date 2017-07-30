@@ -53,6 +53,7 @@ export class ProcessBlockComponent implements OnInit, OnChanges {
     if (changes.detailInWork && changes.detailInWork.currentValue) {
       this._detailInWork.next(this.detailInWork);
       this._detailProducingTimeSpent = 0;
+      // console.time(`${this.detailInWork.name} (x${this.detailInWork.items})`);
       this.startProducing();
     }
   }
@@ -78,7 +79,7 @@ export class ProcessBlockComponent implements OnInit, OnChanges {
 
   private startProducing = () => {
     this._conveyorBusy = true;
-    Observable.interval(50)
+    const _intervalSubscription = Observable.interval(50)
       .takeWhile(() => (
         this.conveyorStatus && this.detailInWork && this.detailInWork.timeToProduce &&
         this.detailInWork.items * this.detailInWork.timeToProduce >= this._detailProducingTimeSpent
@@ -88,6 +89,8 @@ export class ProcessBlockComponent implements OnInit, OnChanges {
         if (this.detailInWork && this._detailProducingTimeSpent >=
           this.detailInWork.items * this.detailInWork.timeToProduce
         ) {
+          // console.timeEnd(`${this.detailInWork.name} (x${this.detailInWork.items})`);
+          _intervalSubscription.unsubscribe();
           this.finishDetailProducing();
         }
       });
@@ -105,6 +108,6 @@ export class ProcessBlockComponent implements OnInit, OnChanges {
     setTimeout(() => {
       this.detailAcomplished.emit();
       this._conveyorBusy = false;
-    }, 0);
+    }, 40);
   }
 }

@@ -20,10 +20,6 @@ export class FixpartsManagerComponent {
 
   constructor(private modalService: BsModalService) {}
 
-  ngOnChanges(changes) {
-    console.log('changes: %O', changes);
-  }
-
   public compose = (template: TemplateRef<any>) => {
     this.composingList = [];
     this.modalRef = this.modalService.show(template);

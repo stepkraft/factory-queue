@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="current-queue">
     <h2>Qurrent queue</h2>
     <div class="row" *ngIf="!currentFixpartsQueue.length">
@@ -48,7 +48,7 @@
         <button class="btn btn-primary btn-md" (click)="addNewRowToComposingList()">Add</button>
       </div>
       <div class="buttons">
-        <button class="btn btn-primary" (click)="addToMainQueue()">Add to queue</button>
+        <button class="btn btn-primary" (click)="addToMainQueue()" [disabled]="composingList.length < 1">Add to queue</button>
         <button class="btn btn-default" (click)="composingList=[];modalRef.hide()">Cancel</button>
       </div>
       <hr />

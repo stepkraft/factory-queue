@@ -2,6 +2,9 @@
 <main class="container-fluid">
   <process-block
     class="col-md-4"
+    [currentFixpartsQueue]="queue$ | async"
+    [detailInWork]="detailInWork$ | async"
+    (addDetailToWork)="addDetailToWork()"
   ></process-block>
   <fixparts-manager
     class="col-md-8"

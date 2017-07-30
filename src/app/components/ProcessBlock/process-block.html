@@ -5,13 +5,14 @@
         'btn-primary': !conveyorStatus,
         'btn-danger': conveyorStatus
       }"
-      (click)="conveyorStatus=!conveyorStatus"
+      (click)="conveyorStatus=!conveyorStatus;changeStatus(conveyorStatus)"
     >{{ conveyorStatus ? 'Stop' : 'Start' }} conveyor</button>
   </div>
   <hr />
   <div class="row">
     <div class="col-md-8 col-sm-10 col-xs-12">
-      <p>Detail in work: <span>{{deteilInWork}}</span></p>
+      {{detailInWork | json}}
+      <p>Detail in work: <span>{{detailName}}</span></p>
       <p>Remaining time: <span>{{RemainingTime}}</span> ms</p>
     </div>
   </div>
